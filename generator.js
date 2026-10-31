@@ -9,3 +9,4 @@ html = html.replace('__SANJAY_SMILE_B64__', b64Data.sanjay_smile);
 
 fs.writeFileSync('index.html', html);
 console.log('index.html generated, size:', html.length);
+
