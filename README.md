@@ -28,9 +28,9 @@ A cinematic, energetic, and hilarious Telugu meme-style flying arcade game built
   ```
   "పిల్ల బచ్చానాయాలా!"
   ```
-- Glowing blue **PLAY GAME** button with pulse animation and tactile vibration:
+- Glowing cyan/blue **START** button with bold Telugu gaming typography, pulse animation, and funny mass-style click recoil:
   ```
-  START చాయ్ కాపోతే మీ నాన్న మీద ఒట్టు 🚀
+  START CHEYAKAPOTHEY MEE NANNA MEEDHA OTTU! 🚀
   ```
 
 ### 3. Smooth Flappy Bird-Style Gameplay

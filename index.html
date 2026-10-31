@@ -393,16 +393,17 @@
       line-height: 1.2;
     }
 
-    /* Start Button - Glowing Blue Neon */
+    /* Start Button - Glowing Blue Neon with Mass Telugu Typography */
     .start-btn-blue {
       width: 100%;
       background: linear-gradient(135deg, #0077ff 0%, #00d4ff 100%);
       border: 3px solid #ffffff;
       color: #ffffff;
-      padding: 17px 14px;
+      padding: 14px 14px;
       border-radius: 20px;
-      font-family: 'Bungee', cursive;
-      font-size: 20px;
+      font-family: 'Fredoka', 'Bungee', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
       letter-spacing: 1px;
       line-height: 1.25;
       text-transform: uppercase;
@@ -410,8 +411,32 @@
       outline: none;
       box-shadow: 0 0 30px var(--neon-blue), 0 0 55px rgba(0, 212, 255, 0.65), 0 8px 0 #004c99;
       animation: pulse-glow-btn 1.5s infinite alternate;
-      transition: transform 0.08s ease;
+      transition: transform 0.08s ease, filter 0.08s ease;
       touch-action: manipulation;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Start Screen Mass Button with Telugu Gaming Typography */
+    .mass-start-btn {
+      font-family: 'Fredoka', 'Bungee', 'Noto Sans Telugu', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      min-height: 72px;
+      padding: 13px 12px;
+      letter-spacing: 0.6px;
+      line-height: 1.26;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-shadow: 
+        0 2px 0 #003366,
+        0 3px 0 #002244,
+        0 4px 8px rgba(0, 0, 0, 0.7),
+        0 0 14px rgba(0, 212, 255, 0.75);
+      border-radius: 22px;
     }
 
     @keyframes pulse-glow-btn {
@@ -422,6 +447,85 @@
     .start-btn-blue:active {
       transform: translateY(6px);
       box-shadow: 0 0 18px var(--neon-blue), 0 2px 0 #004c99;
+    }
+
+    /* Funny Mass-Style Click Animation */
+    @keyframes mass-click-burst {
+      0% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+      }
+      15% {
+        transform: scale(0.85) rotate(-5deg) translateY(4px);
+        filter: brightness(1.8) contrast(1.2);
+        box-shadow: 0 0 40px #00d4ff, 0 4px 0 #004c99;
+      }
+      35% {
+        transform: scale(1.2) rotate(6deg) translateY(-8px);
+        filter: brightness(2.4) contrast(1.3);
+        box-shadow: 0 0 60px #00ffff, 0 0 90px #ff0077, 0 0 120px #ffe600, 0 12px 0 #003366;
+      }
+      55% {
+        transform: scale(0.92) rotate(-4deg);
+        filter: brightness(1.7);
+      }
+      75% {
+        transform: scale(1.1) rotate(3deg);
+        filter: brightness(1.3);
+      }
+      90% {
+        transform: scale(0.98) rotate(-1deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+      }
+    }
+
+    .start-btn-blue.mass-clicked {
+      animation: mass-click-burst 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+      pointer-events: none;
+    }
+
+    @keyframes mass-screen-kick {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-7px, 6px) rotate(-1.5deg); }
+      40% { transform: translate(8px, -6px) rotate(1.5deg); }
+      60% { transform: translate(-5px, -3px) rotate(-1deg); }
+      80% { transform: translate(4px, 4px) rotate(0.8deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .mass-kick {
+      animation: mass-screen-kick 0.28s ease-out both !important;
+    }
+
+    /* Mass Comic Badge Popup */
+    .mass-badge-pop {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #ffe600, #ff0077);
+      color: #000000;
+      font-family: 'Fredoka', 'Bungee', sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 20px rgba(255, 230, 0, 0.9);
+      white-space: nowrap;
+      z-index: 10;
+      animation: mass-badge-anim 0.35s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes mass-badge-anim {
+      0% { opacity: 0; transform: translate(-50%, 15px) scale(0.4) rotate(-12deg); }
+      50% { opacity: 1; transform: translate(-50%, -10px) scale(1.25) rotate(5deg); }
+      80% { transform: translate(-50%, -5px) scale(1.05) rotate(-2deg); }
+      100% { opacity: 1; transform: translate(-50%, -8px) scale(1) rotate(0deg); }
     }
 
     .tap-hint {
@@ -566,8 +670,9 @@
 
     @media (max-width: 480px) {
       .title-line { font-size: 38px; }
-      .telugu-subtext { font-size: 21px; }
-      .start-btn-blue { font-size: 18px; padding: 15px 10px; }
+      .telugu-subtext { font-size: 20px; }
+      .start-btn-blue { font-size: 16px; padding: 12px 10px; }
+      .mass-start-btn { font-size: 15.5px; min-height: 68px; padding: 11px 8px; }
       .hero-photo-wrap { width: 140px; height: 140px; }
       .hero-photo-frame { width: 126px; height: 126px; }
       .fail-title-red { font-size: 34px; }
@@ -642,10 +747,13 @@
           "పిల్ల బచ్చానాయాలా!"
         </div>
 
-        <!-- Large Glowing Blue PLAY Button -->
-        <button class="start-btn-blue" id="btn-start-game">
-          PLAY GAME
-        </button>
+        <!-- Large Glowing Cyan/Blue Button with Telugu Gaming Typography -->
+        <div class="start-btn-wrap" style="position: relative; width: 100%;">
+          <div class="mass-badge-pop hidden" id="mass-badge-pop">💥 OTTU PATTAV RA! 🚀</div>
+          <button class="start-btn-blue mass-start-btn" id="btn-start-game" aria-label="START CHEYAKAPOTHEY MEE NANNA MEEDHA OTTU!">
+            START CHEYAKAPOTHEY<br>MEE NANNA MEEDHA OTTU!
+          </button>
+        </div>
 
         <div class="tap-hint">
           <span>👆 Tap mobile screen or press Spacebar to fly!</span>
@@ -836,6 +944,39 @@
         gain.connect(this.ctx.destination);
         osc.start(now);
         osc.stop(now + 0.5);
+      }
+
+      playMassStart() {
+        if (this.isMuted) return;
+        this.initContext();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+
+        // Mass dappu / punch bass kick
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.22);
+        gain.gain.setValueAtTime(0.85, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.24);
+
+        // Mass crowd whistle chirp
+        const wOsc = this.ctx.createOscillator();
+        const wGain = this.ctx.createGain();
+        wOsc.type = 'triangle';
+        wOsc.frequency.setValueAtTime(1400, now + 0.04);
+        wOsc.frequency.exponentialRampToValueAtTime(2600, now + 0.16);
+        wGain.gain.setValueAtTime(0.25, now + 0.04);
+        wGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        wOsc.connect(wGain);
+        wGain.connect(this.ctx.destination);
+        wOsc.start(now + 0.04);
+        wOsc.stop(now + 0.2);
       }
 
       playFailureVoice(onEnd) {
@@ -1126,9 +1267,15 @@
         };
 
         window.addEventListener('keydown', (e) => {
-          if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+          if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Enter') {
             e.preventDefault();
-            doFlap();
+            if (this.state === 'start') {
+              triggerMassStart();
+            } else if (this.state === 'gameover') {
+              this.startRun();
+            } else {
+              doFlap();
+            }
           } else if (e.code === 'KeyP' || e.code === 'Escape') {
             this.togglePause();
           }
@@ -1139,10 +1286,40 @@
           doFlap();
         });
 
-        // PLAY button
-        document.getElementById('btn-start-game').addEventListener('click', () => {
+        // START Button - Funny Mass-Style Animation & Actual Game Start
+        const btnStart = document.getElementById('btn-start-game');
+        const badgePop = document.getElementById('mass-badge-pop');
+        let isStartingGame = false;
+
+        const triggerMassStart = () => {
+          if (this.state !== 'start' || isStartingGame) return;
+          isStartingGame = true;
+
+          // Sound & Haptics
           sound.initContext();
-          this.startRun();
+          sound.playMassStart();
+          if (navigator.vibrate) {
+            try { navigator.vibrate([40, 30, 80, 40, 100]); } catch (e) {}
+          }
+
+          // Visual Mass Animation on Button & Container
+          btnStart.classList.add('mass-clicked');
+          this.container.classList.add('mass-kick');
+          if (badgePop) badgePop.classList.remove('hidden');
+
+          // Transition into game
+          setTimeout(() => {
+            btnStart.classList.remove('mass-clicked');
+            this.container.classList.remove('mass-kick');
+            if (badgePop) badgePop.classList.add('hidden');
+            isStartingGame = false;
+            this.startRun();
+          }, 260);
+        };
+
+        btnStart.addEventListener('click', (e) => {
+          e.preventDefault();
+          triggerMassStart();
         });
 
         // PLAY AGAIN button
@@ -1865,3 +2042,4 @@
   </script>
 </body>
 </html>
+
