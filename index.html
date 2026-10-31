@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>🔥 FLYING SANJAY // Viral Instagram Reel Meme Arcade 🔥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@600;700;800&family=Noto+Sans+Telugu:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-blue: #00d4ff;
+      --neon-blue-bright: #38e1ff;
+      --neon-blue-glow: rgba(0, 212, 255, 0.75);
+      --neon-gold: #ffd700;
+      --neon-gold-glow: rgba(255, 215, 0, 0.85);
+      --neon-orange: #ff6b00;
+      --neon-orange-glow: rgba(255, 107, 0, 0.85);
+      --neon-red: #ff1744;
+      --neon-red-glow: rgba(255, 23, 68, 0.9);
+      --bg-dark: #04081c;
+      --card-bg: rgba(6, 14, 38, 0.93);
+      --font-telugu: 'Noto Sans Telugu', 'Fredoka', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #02040d;
+      font-family: var(--font-telugu);
+      color: #fff;
+      touch-action: none;
+    }
+
+    /* Container for 9:16 Reel Experience */
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #0a1640 0%, #030614 100%);
+    }
+
+    /* Heavy Shake Effect */
+    .heavy-shake {
+      animation: heavy-shake-anim 0.55s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes heavy-shake-anim {
+      10%, 90% { transform: translate3d(-6px, 4px, 0) rotate(-1.5deg); }
+      20%, 80% { transform: translate3d(7px, -6px, 0) rotate(2deg); }
+      30%, 50%, 70% { transform: translate3d(-8px, 6px, 0) rotate(-2deg); }
+      40%, 60% { transform: translate3d(8px, -6px, 0) rotate(2deg); }
+    }
+
+    /* Red Screen Flash Overlay */
+    #red-flash-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 0, 40, 0.7);
+      z-index: 15;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    #red-flash-overlay.active {
+      opacity: 1;
+      transition: none;
+    }
+
+    /* Game Canvas */
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Reel Side Icons Overlay (Instagram Style) */
+    .reel-sidebar {
+      position: absolute;
+      right: 14px;
+      bottom: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 12;
+      pointer-events: auto;
+    }
+
+    .reel-icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.15s ease;
+    }
+
+    .reel-icon-btn:active {
+      transform: scale(1.25);
+    }
+
+    .reel-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .reel-icon-count {
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 3px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Sound Bar in Reel */
+    .reel-sound-pill {
+      position: absolute;
+      bottom: 24px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      z-index: 12;
+      pointer-events: none;
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .sound-note-spin {
+      animation: spin-note 3s linear infinite;
+    }
+
+    @keyframes spin-note {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* CRT Vignette */
+    .crt-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 65%, rgba(0, 4, 18, 0.7) 100%);
+      z-index: 5;
+    }
+
+    /* In-Game HUD */
+    #hud {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 20px;
+    }
+
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hud-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(4, 10, 30, 0.88);
+      border: 2px solid var(--neon-blue);
+      box-shadow: 0 0 15px var(--neon-blue-glow);
+      border-radius: 14px;
+      padding: 6px 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-blue);
+      box-shadow: 0 0 8px var(--neon-blue);
+      object-fit: cover;
+      background: #09122c;
+    }
+
+    .score-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .score-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--neon-gold);
+      text-transform: uppercase;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .score-value {
+      font-size: 26px;
+      font-family: 'Bungee', cursive;
+      color: #fff;
+      text-shadow: 0 0 10px var(--neon-blue);
+      line-height: 1;
+    }
+
+    .hud-controls {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .hud-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(4, 10, 30, 0.88);
+      border: 2px solid var(--neon-blue);
+      box-shadow: 0 0 12px var(--neon-blue-glow);
+      color: #fff;
+      font-size: 17px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.15s ease;
+    }
+
+    .hud-btn:active {
+      transform: scale(0.9);
+      background: var(--neon-blue);
+    }
+
+    .grav-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(4, 10, 30, 0.88);
+      border: 2px solid var(--neon-gold);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .grav-arrow {
+      font-size: 18px;
+      color: var(--neon-gold);
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .grav-arrow.up {
+      transform: rotate(180deg);
+      color: #ff007f;
+    }
+
+    /* Screen Overlays */
+    .overlay-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 4, 15, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      transition: opacity 0.25s ease;
+    }
+
+    .overlay-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .meme-card {
+      background: var(--card-bg);
+      border: 3px solid var(--neon-blue);
+      box-shadow: 0 0 35px var(--neon-blue-glow), inset 0 0 25px rgba(0, 212, 255, 0.15);
+      border-radius: 26px;
+      padding: 26px 20px;
+      max-width: 430px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: card-pop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      position: relative;
+    }
+
+    @keyframes card-pop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Big Glowing Title */
+    .title-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 8px;
+      line-height: 0.95;
+    }
+
+    .title-line {
+      font-family: 'Bungee', cursive;
+      font-size: 44px;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 
+        0 1px 0 #cccccc,
+        0 2px 0 #b3b3b3,
+        0 3px 0 #999999,
+        0 4px 0 #808080,
+        0 5px 2px rgba(0,0,0,0.5),
+        0 0 20px var(--neon-blue),
+        0 0 45px var(--neon-blue-bright);
+    }
+
+    /* Hero Portrait with Glowing Blue Border */
+    .hero-photo-wrap {
+      position: relative;
+      width: 154px;
+      height: 154px;
+      margin: 8px 0 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-photo-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--neon-blue) 0%, rgba(0, 212, 255, 0.2) 65%, transparent 75%);
+      filter: blur(12px);
+      animation: rotate-hero 4s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes rotate-hero {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.06); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--neon-blue);
+      box-shadow: 0 0 30px var(--neon-blue), inset 0 0 15px rgba(0, 212, 255, 0.4);
+      overflow: hidden;
+      background: #060b24;
+      z-index: 2;
+      animation: hero-hover 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes hero-hover {
+      from { transform: translateY(-3px) scale(0.98); }
+      to { transform: translateY(4px) scale(1.02); }
+    }
+
+    .hero-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Text Below Photo */
+    .telugu-subtext {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--neon-gold);
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 119, 0, 0.5);
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    /* Start Button with Vibrating & Pulsing Effects */
+    .start-btn-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .start-btn-vibe {
+      width: 100%;
+      background: linear-gradient(135deg, #0077ff 0%, #00d4ff 100%);
+      border: 3px solid #ffffff;
+      color: #ffffff;
+      padding: 17px 14px;
+      border-radius: 20px;
+      font-family: var(--font-telugu);
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 0 30px var(--neon-blue), 0 0 50px rgba(0, 212, 255, 0.6), 0 8px 0 #004c99;
+      animation: pulse-glow-btn 1.5s infinite alternate, vibrate-button 3s infinite;
+      transition: transform 0.08s ease;
+      touch-action: manipulation;
+    }
+
+    @keyframes pulse-glow-btn {
+      0% {
+        box-shadow: 0 0 20px var(--neon-blue), 0 8px 0 #004c99;
+      }
+      100% {
+        box-shadow: 0 0 45px var(--neon-blue), 0 0 65px rgba(0, 212, 255, 0.8), 0 8px 0 #004c99;
+      }
+    }
+
+    @keyframes vibrate-button {
+      0%, 85%, 100% { transform: translate(0, 0) scale(1); }
+      87% { transform: translate(-2px, 1px) scale(1.02); }
+      89% { transform: translate(2px, -1px) scale(1.02); }
+      91% { transform: translate(-2px, -1px) scale(1.02); }
+      93% { transform: translate(2px, 2px) scale(1.02); }
+      95% { transform: translate(-1px, -2px) scale(1.02); }
+      97% { transform: translate(1px, 1px) scale(1.02); }
+    }
+
+    .start-btn-vibe:active {
+      transform: translateY(6px) !important;
+      box-shadow: 0 0 18px var(--neon-blue), 0 2px 0 #004c99 !important;
+    }
+
+    /* Upload / Replace Photo Pill */
+    .photo-replace-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed var(--neon-blue);
+      border-radius: 20px;
+      padding: 4px 12px;
+      color: var(--neon-blue);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .photo-replace-pill:hover, .photo-replace-pill:active {
+      background: rgba(0, 212, 255, 0.2);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* GAME OVER SCREEN */
+    .fail-card {
+      border-color: var(--neon-red);
+      box-shadow: 0 0 45px var(--neon-red-glow), inset 0 0 30px rgba(255, 23, 68, 0.25);
+    }
+
+    .fail-title-red {
+      font-family: 'Bungee', cursive;
+      font-size: 38px;
+      color: var(--neon-red);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 
+        0 1px 0 #990000,
+        0 2px 0 #800000,
+        0 3px 0 #660000,
+        0 4px 0 #4d0000,
+        0 0 25px var(--neon-red),
+        0 0 55px var(--neon-red-glow);
+      margin-bottom: 8px;
+    }
+
+    /* Glowing Orange Background Behind Sanjay Photo on Game Over */
+    .fail-photo-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 6px 0 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .orange-glow-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--neon-orange) 0%, rgba(255, 107, 0, 0.6) 55%, transparent 75%);
+      filter: blur(14px);
+      box-shadow: 0 0 40px var(--neon-orange-glow);
+      animation: pulse-orange 1.5s infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes pulse-orange {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .fail-photo-frame {
+      position: relative;
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      border: 4px solid var(--neon-orange);
+      box-shadow: 0 0 25px var(--neon-orange);
+      overflow: hidden;
+      background: #140802;
+      z-index: 2;
+    }
+
+    /* Staggered Game Over Reveal container */
+    #go-stats-container {
+      width: 100%;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    #go-stats-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stats-card-grid {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin: 10px 0 18px 0;
+      gap: 12px;
+    }
+
+    .stat-box-fail {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 8px;
+      border-radius: 14px;
+    }
+
+    .stat-label-fail {
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .stat-num-fail {
+      font-family: 'Bungee', cursive;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    /* Replay Button with Telugu Text */
+    .replay-btn-telugu {
+      width: 100%;
+      background: linear-gradient(135deg, #ff0055 0%, #ff5500 100%);
+      border: 3px solid #ffffff;
+      color: #ffffff;
+      padding: 16px;
+      border-radius: 20px;
+      font-family: var(--font-telugu);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255, 0, 85, 0.8), 0 8px 0 #990033;
+      transition: transform 0.08s ease;
+      touch-action: manipulation;
+    }
+
+    .replay-btn-telugu:active {
+      transform: translateY(6px);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8), 0 2px 0 #990033;
+    }
+
+    @media (max-width: 480px) {
+      .title-line { font-size: 38px; }
+      .telugu-subtext { font-size: 21px; }
+      .start-btn-vibe { font-size: 17px; padding: 15px 10px; }
+      .hero-photo-wrap { width: 140px; height: 140px; }
+      .hero-photo-frame { width: 126px; height: 126px; }
+      .fail-title-red { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="game-container">
+    <!-- Game Canvas -->
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Red Flash Overlay for Collision Game Over -->
+    <div id="red-flash-overlay"></div>
+
+    <!-- Vignette effect -->
+    <div class="crt-vignette"></div>
+
+    <!-- Hidden file input for custom photo upload -->
+    <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+
+    <!-- Reel Style Social Sidebar -->
+    <div class="reel-sidebar" id="reel-sidebar">
+      <button class="reel-icon-btn" id="btn-like">
+        <div class="reel-icon-circle">❤️</div>
+        <span class="reel-icon-count" id="like-count">1.4M</span>
+      </button>
+      <button class="reel-icon-btn" id="btn-comments">
+        <div class="reel-icon-circle">💬</div>
+        <span class="reel-icon-count">52.8K</span>
+      </button>
+      <button class="reel-icon-btn" id="btn-share">
+        <div class="reel-icon-circle">🚀</div>
+        <span class="reel-icon-count">Share</span>
+      </button>
+    </div>
+
+    <!-- Reel Audio Pill -->
+    <div class="reel-sound-pill">
+      <span class="sound-note-spin">🎵</span>
+      <span>DSP // Mass Dance Beats</span>
+    </div>
+
+    <!-- In-Game HUD -->
+    <div id="hud">
+      <div class="hud-header">
+        <div class="hud-card">
+          <img class="hud-avatar" id="hud-avatar-img" alt="Sanjay">
+          <div class="score-wrap">
+            <span class="score-label">Score</span>
+            <span class="score-value" id="hud-score">0</span>
+          </div>
+        </div>
+
+        <div class="grav-indicator">
+          <span class="grav-arrow" id="hud-grav-arrow">⬇</span>
+          <span id="hud-grav-text">GRAVITY: DOWN</span>
+        </div>
+
+        <div class="hud-controls">
+          <button class="hud-btn" id="btn-audio" title="Toggle Sound">🔊</button>
+          <button class="hud-btn" id="btn-pause" title="Pause Game">⏸</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- START SCREEN -->
+    <div class="overlay-screen" id="screen-start">
+      <div class="meme-card">
+        <!-- Big Glowing Title: FLYING SANJAY -->
+        <div class="title-stack">
+          <span class="title-line">FLYING</span>
+          <span class="title-line">SANJAY</span>
+        </div>
+
+        <!-- Reference Photo Hero with Glowing Blue Border -->
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-ring"></div>
+          <div class="hero-photo-frame">
+            <img class="hero-photo-img" id="img-start-hero" alt="Sanjay">
+          </div>
+        </div>
+
+        <!-- Optional Upload Photo Pill -->
+        <button class="photo-replace-pill" id="btn-upload-photo" title="Upload your friend Sanjay's photo">
+          <span>📸</span> <span>Upload / Replace Photo</span>
+        </button>
+
+        <!-- Telugu Text Below Photo: "పిల్ల బచ్చానాయాలా!" -->
+        <div class="telugu-subtext">
+          "పిల్ల బచ్చానాయాలా!"
+        </div>
+
+        <!-- Start Button: "START చాయ్ కాపోతే మీ నాన్న మీద ఒట్టు" -->
+        <div class="start-btn-container">
+          <button class="start-btn-vibe" id="btn-start-game">
+            START చాయ్ కాపోతే<br>మీ నాన్న మీద ఒట్టు
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME OVER SCREEN (Choreographed Sequence) -->
+    <div class="overlay-screen hidden" id="screen-gameover">
+      <div class="meme-card fail-card">
+        <!-- Big Red Title: 💀 YOU FAILED 💀 -->
+        <h2 class="fail-title-red">💀 YOU FAILED 💀</h2>
+
+        <!-- Reference Photo with Glowing Orange Background -->
+        <div class="fail-photo-wrap">
+          <div class="orange-glow-bg"></div>
+          <div class="fail-photo-frame">
+            <img class="hero-photo-img" id="img-gameover-hero" alt="Sanjay">
+          </div>
+        </div>
+
+        <!-- Telugu Voice Text Display -->
+        <div class="telugu-subtext" style="color: var(--neon-gold); margin-bottom: 8px;">
+          "పిల్ల బచ్చానాయాలా!"
+        </div>
+
+        <!-- Scores and Replay Button (Revealed after voice completes!) -->
+        <div id="go-stats-container">
+          <div class="stats-card-grid">
+            <div class="stat-box-fail">
+              <div class="stat-label-fail">SCORE</div>
+              <div class="stat-num-fail" id="go-score" style="color: var(--neon-blue);">0</div>
+            </div>
+            <div class="stat-box-fail">
+              <div class="stat-label-fail">BEST SCORE</div>
+              <div class="stat-num-fail" id="go-best-score" style="color: var(--neon-gold);">0</div>
+            </div>
+          </div>
+
+          <!-- Replay Button: "మళ్ళీ ట్రై చెయ్ రా!" -->
+          <button class="replay-btn-telugu" id="btn-replay">
+            మళ్ళీ ట్రై చెయ్ రా! 🚀
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAUSE SCREEN -->
+    <div class="overlay-screen hidden" id="screen-pause">
+      <div class="meme-card" style="max-width: 300px;">
+        <h2 class="title-line" style="font-size: 26px; margin-bottom: 16px;">PAUSED</h2>
+        <button class="start-btn-vibe" id="btn-resume" style="margin-bottom: 12px; font-size: 15px; padding: 14px;">
+          RESUME
+        </button>
+        <button class="replay-btn-telugu" id="btn-pause-restart" style="font-size: 15px; padding: 14px;">
+          RESTART
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /**
+     * 🔥 FLYING SANJAY 🔥 // Instagram Reel Anti-Gravity Arcade
+     * Pure HTML5 Canvas & Vanilla JS.
+     * Features Giant Milk Bottles, Golden Milk Bonus, DSP Glow Background,
+     * Dance Music & Whistle SFX, Face Zoom & Staggered Voice Game Over!
+     */
+
+    // 1. EMBEDDED DEFAULT SANJAY HERO PORTRAIT (Fallback Data URL)
+    const DEFAULT_SANJAY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+      <defs>
+        <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#04081c" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f8c291"/>
+          <stop offset="100%" stop-color="#e58e26"/>
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00d4ff"/>
+          <stop offset="100%" stop-color="#ff007f"/>
+        </linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="190" fill="url(#bgGlow)"/>
+      <circle cx="200" cy="200" r="185" fill="#060c24" stroke="#00d4ff" stroke-width="8"/>
+      <rect x="175" y="270" width="50" height="60" rx="10" fill="#e58e26"/>
+      <path d="M125 365 L170 295 L200 330 L230 295 L275 365 Z" fill="#2563eb" stroke="#1d4ed8" stroke-width="5"/>
+      <circle cx="200" cy="350" r="5" fill="#ffd700"/>
+      <ellipse cx="200" cy="205" rx="85" ry="100" fill="url(#skinGrad)" stroke="#b87a4c" stroke-width="4"/>
+      <ellipse cx="112" cy="205" rx="15" ry="24" fill="#e58e26"/>
+      <ellipse cx="288" cy="205" rx="15" ry="24" fill="#e58e26"/>
+      <path d="M115 175 Q110 95 160 80 Q200 65 250 80 Q290 95 285 175 Q270 110 200 105 Q130 110 115 175 Z" fill="#18181b"/>
+      <path d="M140 156 Q165 145 185 154" stroke="#18181b" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M215 154 Q235 145 260 156" stroke="#18181b" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <ellipse cx="162" cy="180" rx="14" ry="10" fill="#ffffff"/>
+      <circle cx="164" cy="180" r="7" fill="#18181b"/>
+      <circle cx="167" cy="177" r="2.5" fill="#ffffff"/>
+      <ellipse cx="238" cy="180" rx="14" ry="10" fill="#ffffff"/>
+      <circle cx="236" cy="180" r="7" fill="#18181b"/>
+      <circle cx="239" cy="177" r="2.5" fill="#ffffff"/>
+      <path d="M135 168 Q165 166 185 168 Q188 198 165 204 Q138 202 135 168 Z" fill="url(#glassGrad)" stroke="#ffd700" stroke-width="3"/>
+      <path d="M215 168 Q235 166 265 168 Q268 202 235 204 Q212 198 215 168 Z" fill="url(#glassGrad)" stroke="#ffd700" stroke-width="3"/>
+      <path d="M185 172 Q200 168 215 172" stroke="#ffd700" stroke-width="5" fill="none"/>
+      <line x1="145" y1="172" x2="160" y2="198" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+      <line x1="225" y1="172" x2="240" y2="198" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+      <path d="M200 185 L196 215 Q200 220 206 217" stroke="#b87a4c" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M168 234 Q188 226 200 234 Q212 226 232 234 Q222 248 200 242 Q178 248 168 234 Z" fill="#18181b"/>
+      <path d="M174 246 Q200 274 226 246" stroke="#991b1b" stroke-width="4" fill="#ffffff" stroke-linecap="round"/>
+      <path d="M174 246 Q200 274 226 246 Z" fill="#ffffff"/>
+      <polygon points="295,95 300,80 305,95 320,100 305,105 300,120 295,105 280,100" fill="#ffd700"/>
+    </svg>`;
+
+    const DEFAULT_HERO_DATA = 'data:image/svg+xml;utf8,' + encodeURIComponent(DEFAULT_SANJAY_SVG);
+
+    // 2. ENERGETIC DANCE BGM & WHISTLE / MEME SOUND EFFECTS
+    class DSPDanceAudio {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+        this.musicPlaying = false;
+        this.timer = null;
+        this.step = 0;
+        this.bpm = 138;
+      }
+
+      init() {
+        if (this.ctx) return;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioCtx();
+      }
+
+      ensure() {
+        if (!this.ctx) this.init();
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      }
+
+      toggleMute() {
+        this.muted = !this.muted;
+        return this.muted;
+      }
+
+      playFlip(isUp) {
+        if (this.muted) return;
+        this.ensure();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+        const start = isUp ? 260 : 640;
+        const end = isUp ? 640 : 260;
+
+        osc.frequency.setValueAtTime(start, now);
+        osc.frequency.exponentialRampToValueAtTime(end, now + 0.12);
+
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.14);
+      }
+
+      // Funny energetic whistle sound effect
+      playWhistle() {
+        if (this.muted) return;
+        this.ensure();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1400, now);
+        osc.frequency.exponentialRampToValueAtTime(2200, now + 0.08);
+        osc.frequency.exponentialRampToValueAtTime(1800, now + 0.18);
+
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.22);
+      }
+
+      // Golden milk chime
+      playGoldenChime() {
+        if (this.muted) return;
+        this.ensure();
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const t = now + idx * 0.05;
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.3, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.2);
+        });
+      }
+
+      // Failure audio: Telugu speech "పిల్ల బచ్చానాయాలా!" + dramatic bonk
+      playFailureVoice(onComplete) {
+        if (this.muted) {
+          if (onComplete) onComplete();
+          return;
+        }
+        this.ensure();
+
+        // 1. Dramatic bass crash bonk
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(280, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.5);
+
+        gain.gain.setValueAtTime(0.85, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.55);
+
+        // 2. Web Speech API Telugu voice utterance
+        let voiceTriggered = false;
+        if ('speechSynthesis' in window) {
+          try {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance('పిల్ల బచ్చానాయాలా!');
+            utterance.rate = 1.0;
+            utterance.pitch = 1.15;
+            utterance.volume = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const teVoice = voices.find(v => v.lang.startsWith('te') || v.lang.includes('IN'));
+            if (teVoice) utterance.voice = teVoice;
+
+            const done = () => {
+              if (!voiceTriggered) {
+                voiceTriggered = true;
+                if (onComplete) onComplete();
+              }
+            };
+
+            utterance.onend = done;
+            utterance.onerror = done;
+            window.speechSynthesis.speak(utterance);
+
+            // Timeout fallback
+            setTimeout(done, 1400);
+            return;
+          } catch (e) {
+            console.warn(e);
+          }
+        }
+
+        if (onComplete) setTimeout(onComplete, 900);
+      }
+
+      startMusic() {
+        if (this.musicPlaying) return;
+        this.ensure();
+        this.musicPlaying = true;
+        this.step = 0;
+        this.scheduleBeat();
+      }
+
+      stopMusic() {
+        this.musicPlaying = false;
+        if (this.timer) clearTimeout(this.timer);
+      }
+
+      scheduleBeat() {
+        if (!this.musicPlaying || !this.ctx) return;
+        const stepTime = (60 / this.bpm) / 4;
+        this.playBeatStep(this.step);
+        this.step = (this.step + 1) % 32;
+        this.timer = setTimeout(() => this.scheduleBeat(), stepTime * 1000);
+      }
+
+      playBeatStep(step) {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+
+        // DSP South Mass Dappu / Dholak rhythm (heavy 1-3 syncopation)
+        if (step % 4 === 0 || step % 8 === 6 || step % 16 === 10) {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(42, now + 0.08);
+
+          gain.gain.setValueAtTime(0.35, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        }
+
+        // Mass Brass/Trumpet energetic stab
+        if (step % 8 === 0 || step % 8 === 3) {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          const notes = [293.66, 329.63, 392.00, 440.00];
+          osc.frequency.setValueAtTime(notes[(step / 4) % notes.length], now);
+
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.14);
+        }
+
+        // Whistle chirp on beat 16
+        if (step === 15 && Math.random() > 0.4) {
+          this.playWhistle();
+        }
+      }
+    }
+
+    const sound = new DSPDanceAudio();
+
+    // 3. MAIN FLYING SANJAY GAME CLASS
+    class FlyingSanjayReelGame {
+      constructor() {
+        this.container = document.getElementById('game-container');
+        this.canvas = document.getElementById('gameCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.redFlash = document.getElementById('red-flash-overlay');
+
+        // Virtual 450x800 Reel dimensions
+        this.width = 450;
+        this.height = 800;
+        this.scale = 1;
+        this.offsetX = 0;
+        this.offsetY = 0;
+
+        this.ceilingY = 40;
+        this.floorY = 760;
+
+        // Player State
+        this.player = {
+          x: 95,
+          y: 400,
+          radius: 28,
+          vy: 0,
+          gravityDir: 1,
+          rotation: 0,
+          flipSpin: 0,
+          capeWave: 0,
+          wobbleAngle: 0
+        };
+
+        this.gravityAcc = 2000;
+        this.terminalVel = 750;
+
+        // Camera Zoom on Death
+        this.cameraZoom = 1.0;
+        this.targetZoom = 1.0;
+
+        // Game State & Metrics
+        this.state = 'start'; // 'start', 'playing', 'paused', 'gameover_freeze', 'gameover'
+        this.score = 0;
+        this.bestScore = parseInt(localStorage.getItem('flying_sanjay_best') || '0', 10);
+        this.speed = 290;
+
+        // Guard for single voice execution
+        this.hasPlayedFailureVoice = false;
+
+        // Obstacles (Giant Milk Bottles), particles, clouds, stars
+        this.obstacles = [];
+        this.particles = [];
+        this.clouds = [];
+        this.stars = [];
+        this.floatingTexts = [];
+        this.confetti = [];
+        this.dspWatermarks = [];
+
+        this.spawnTimer = 0;
+        this.nextSpawnGap = 250;
+
+        // Sanjay Hero Photo
+        this.sanjayImg = new Image();
+        this.initHeroPhoto();
+
+        // Background visual layers
+        this.initBackgroundLayers();
+
+        // UI references
+        this.hudScore = document.getElementById('hud-score');
+        this.hudGravArrow = document.getElementById('hud-grav-arrow');
+        this.hudGravText = document.getElementById('hud-grav-text');
+        this.screenStart = document.getElementById('screen-start');
+        this.screenGameOver = document.getElementById('screen-gameover');
+        this.screenPause = document.getElementById('screen-pause');
+        this.goStatsContainer = document.getElementById('go-stats-container');
+        this.goScore = document.getElementById('go-score');
+        this.goBestScore = document.getElementById('go-best-score');
+
+        this.initResize();
+        this.bindEvents();
+
+        this.lastTime = performance.now();
+        requestAnimationFrame((t) => this.loop(t));
+      }
+
+      initHeroPhoto() {
+        const savedPhoto = localStorage.getItem('flying_sanjay_custom_photo');
+        const photoSrc = savedPhoto || DEFAULT_HERO_DATA;
+
+        this.sanjayImg.src = photoSrc;
+        document.getElementById('img-start-hero').src = photoSrc;
+        document.getElementById('img-gameover-hero').src = photoSrc;
+        document.getElementById('hud-avatar-img').src = photoSrc;
+
+        if (!savedPhoto) {
+          const testImg = new Image();
+          testImg.onload = () => {
+            this.setPhotoEverywhere('assets/sanjay.png');
+          };
+          testImg.src = 'assets/sanjay.png';
+        }
+      }
+
+      setPhotoEverywhere(src) {
+        localStorage.setItem('flying_sanjay_custom_photo', src);
+        this.sanjayImg.src = src;
+        document.getElementById('img-start-hero').src = src;
+        document.getElementById('img-gameover-hero').src = src;
+        document.getElementById('hud-avatar-img').src = src;
+      }
+
+      initBackgroundLayers() {
+        // 1. Repeated giant transparent glowing DSP text
+        this.dspWatermarks = [];
+        for (let y = 120; y < this.height; y += 220) {
+          for (let x = -100; x < this.width + 300; x += 280) {
+            this.dspWatermarks.push({ x, y, baseSpeed: 15 });
+          }
+        }
+
+        // 2. Stars
+        this.stars = [];
+        for (let i = 0; i < 50; i++) {
+          this.stars.push({
+            x: Math.random() * this.width,
+            y: Math.random() * this.height,
+            size: Math.random() * 2 + 1,
+            speed: Math.random() * 30 + 15,
+            alpha: Math.random() * 0.7 + 0.3
+          });
+        }
+
+        // 3. Moving clouds
+        this.clouds = [];
+        for (let i = 0; i < 5; i++) {
+          this.clouds.push({
+            x: Math.random() * this.width,
+            y: Math.random() * 280 + 60,
+            w: Math.random() * 120 + 90,
+            h: Math.random() * 40 + 30,
+            speed: Math.random() * 25 + 15,
+            alpha: Math.random() * 0.15 + 0.08
+          });
+        }
+      }
+
+      initResize() {
+        const resize = () => {
+          const dpr = window.devicePixelRatio || 1;
+          const w = window.innerWidth;
+          const h = window.innerHeight;
+
+          this.canvas.width = Math.floor(w * dpr);
+          this.canvas.height = Math.floor(h * dpr);
+
+          const scaleX = this.canvas.width / this.width;
+          const scaleY = this.canvas.height / this.height;
+          this.scale = Math.min(scaleX, scaleY);
+
+          this.offsetX = Math.floor((this.canvas.width - this.width * this.scale) / 2);
+          this.offsetY = Math.floor((this.canvas.height - this.height * this.scale) / 2);
+        };
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('orientationchange', resize);
+        resize();
+      }
+
+      bindEvents() {
+        const doFlip = () => {
+          if (this.state === 'playing') {
+            this.flipGravity();
+          }
+        };
+
+        window.addEventListener('keydown', (e) => {
+          if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+            e.preventDefault();
+            doFlip();
+          } else if (e.code === 'KeyP' || e.code === 'Escape') {
+            this.togglePause();
+          }
+        });
+
+        this.canvas.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          doFlip();
+        });
+
+        // Start Button
+        document.getElementById('btn-start-game').addEventListener('click', () => {
+          sound.ensure();
+          if (navigator.vibrate) navigator.vibrate(60);
+          this.startRun();
+        });
+
+        // Replay Button: "మళ్ళీ ట్రై చెయ్ రా!"
+        document.getElementById('btn-replay').addEventListener('click', () => {
+          sound.ensure();
+          if (navigator.vibrate) navigator.vibrate(60);
+          this.startRun();
+        });
+
+        // Pause Controls
+        document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
+        document.getElementById('btn-resume').addEventListener('click', () => this.togglePause());
+        document.getElementById('btn-pause-restart').addEventListener('click', () => this.startRun());
+
+        // Audio Toggle
+        const btnAudio = document.getElementById('btn-audio');
+        btnAudio.addEventListener('click', () => {
+          const muted = sound.toggleMute();
+          btnAudio.textContent = muted ? '🔇' : '🔊';
+        });
+
+        // Reel Like Button interaction
+        const btnLike = document.getElementById('btn-like');
+        btnLike.addEventListener('click', () => {
+          this.emitMemeHearts(this.width - 40, this.height - 180);
+          sound.playWhistle();
+        });
+
+        // Photo Upload
+        const fileInput = document.getElementById('photo-upload');
+        document.getElementById('btn-upload-photo').addEventListener('click', () => {
+          fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+              this.setPhotoEverywhere(evt.target.result);
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      startRun() {
+        this.state = 'playing';
+        this.score = 0;
+        this.speed = 290;
+        this.cameraZoom = 1.0;
+        this.targetZoom = 1.0;
+        this.obstacles = [];
+        this.particles = [];
+        this.floatingTexts = [];
+        this.confetti = [];
+        this.spawnTimer = 0;
+        this.nextSpawnGap = 240;
+        this.hasPlayedFailureVoice = false;
+
+        // Reset player
+        this.player.x = 95;
+        this.player.y = this.height / 2;
+        this.player.vy = 0;
+        this.player.gravityDir = 1;
+        this.player.rotation = 0;
+        this.player.flipSpin = 0;
+        this.player.wobbleAngle = 0;
+
+        // Hide overlays
+        this.screenStart.classList.add('hidden');
+        this.screenGameOver.classList.add('hidden');
+        this.screenPause.classList.add('hidden');
+        this.goStatsContainer.classList.remove('show');
+        this.redFlash.classList.remove('active');
+        this.container.classList.remove('heavy-shake');
+
+        this.updateHUD();
+        sound.startMusic();
+      }
+
+      flipGravity() {
+        this.player.gravityDir *= -1;
+        this.player.flipSpin = this.player.gravityDir === -1 ? -Math.PI : Math.PI;
+        this.player.vy = this.player.gravityDir * Math.max(Math.abs(this.player.vy) * 0.35, 180);
+
+        sound.playFlip(this.player.gravityDir === -1);
+        this.emitSparks(this.player.x, this.player.y, 8, '#00d4ff');
+
+        this.updateHUD();
+      }
+
+      togglePause() {
+        if (this.state === 'playing') {
+          this.state = 'paused';
+          this.screenPause.classList.remove('hidden');
+        } else if (this.state === 'paused') {
+          this.state = 'playing';
+          this.screenPause.classList.add('hidden');
+        }
+      }
+
+      // THEATRICAL REEL GAME OVER SEQUENCE
+      triggerGameOverSequence() {
+        if (this.state === 'gameover_freeze' || this.state === 'gameover') return;
+        this.state = 'gameover_freeze'; // Freeze gameplay movement
+
+        sound.stopMusic();
+
+        // 1. Screen turns red
+        this.redFlash.classList.add('active');
+
+        // 2. Heavy screen shake
+        this.container.classList.remove('heavy-shake');
+        void this.container.offsetWidth;
+        this.container.classList.add('heavy-shake');
+
+        if (navigator.vibrate) {
+          navigator.vibrate([200, 80, 250]);
+        }
+
+        // 3. Zoom into player face
+        this.targetZoom = 2.2;
+
+        // 4. Play failure voice: "పిల్ల బచ్చానాయాలా!" (strictly once)
+        if (!this.hasPlayedFailureVoice) {
+          this.hasPlayedFailureVoice = true;
+
+          sound.playFailureVoice(() => {
+            // After voice completes: show score, best score, and replay button!
+            this.state = 'gameover';
+            this.goScore.textContent = this.score;
+            this.goBestScore.textContent = this.bestScore;
+            this.screenGameOver.classList.remove('hidden');
+
+            setTimeout(() => {
+              this.goStatsContainer.classList.add('show');
+            }, 100);
+          });
+        }
+
+        // Check and celebrate high score
+        if (this.score > this.bestScore) {
+          this.bestScore = this.score;
+          localStorage.setItem('flying_sanjay_best', this.bestScore);
+          this.emitConfetti();
+        }
+      }
+
+      emitSparks(x, y, count = 6, color = '#00d4ff') {
+        for (let i = 0; i < count; i++) {
+          this.particles.push({
+            x,
+            y,
+            vx: -Math.random() * 120 - 40,
+            vy: (Math.random() - 0.5) * 140,
+            size: Math.random() * 4 + 2,
+            color,
+            alpha: 1,
+            life: 1,
+            decay: 0.04
+          });
+        }
+      }
+
+      emitMemeHearts(x, y) {
+        const hearts = ['❤️', '🔥', '🥛', '✨', '🍼'];
+        for (let i = 0; i < 8; i++) {
+          this.particles.push({
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 160,
+            vy: -Math.random() * 220 - 80,
+            size: 22,
+            icon: hearts[Math.floor(Math.random() * hearts.length)],
+            alpha: 1,
+            life: 1,
+            decay: 0.02
+          });
+        }
+      }
+
+      emitConfetti() {
+        const colors = ['#ffd700', '#00d4ff', '#ff007f', '#00ff88', '#ffffff'];
+        for (let i = 0; i < 60; i++) {
+          this.confetti.push({
+            x: Math.random() * this.width,
+            y: -10,
+            vx: (Math.random() - 0.5) * 120,
+            vy: Math.random() * 200 + 120,
+            w: Math.random() * 8 + 6,
+            h: Math.random() * 14 + 8,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 10
+          });
+        }
+      }
+
+      addScorePopup(x, y, text, color = '#ffd700') {
+        this.floatingTexts.push({
+          x,
+          y,
+          text,
+          color,
+          alpha: 1,
+          life: 1,
+          decay: 0.025
+        });
+      }
+
+      updateHUD() {
+        this.hudScore.textContent = this.score;
+        if (this.player.gravityDir === -1) {
+          this.hudGravArrow.classList.add('up');
+          this.hudGravText.textContent = 'GRAVITY: UP';
+        } else {
+          this.hudGravArrow.classList.remove('up');
+          this.hudGravText.textContent = 'GRAVITY: DOWN';
+        }
+      }
+
+      // SPANNING GIANT MILK BOTTLES (Top & Bottom Pairs)
+      spawnMilkBottles() {
+        // 20% chance to spawn a Golden Milk Bottle bonus pair
+        const isGolden = Math.random() < 0.20;
+
+        const gapSize = Math.max(160, 220 - this.score * 2.2);
+        const minY = this.ceilingY + 80;
+        const maxY = this.floorY - gapSize - 80;
+        const gapY = minY + Math.random() * (maxY - minY);
+
+        this.obstacles.push({
+          x: this.width + 60,
+          width: 72,
+          gapY,
+          gapSize,
+          isGolden,
+          passed: false
+        });
+      }
+
+      loop(timestamp) {
+        requestAnimationFrame((t) => this.loop(t));
+
+        const dt = Math.min((timestamp - this.lastTime) * 0.001, 0.1);
+        this.lastTime = timestamp;
+
+        if (this.state === 'playing') {
+          this.update(dt);
+        } else if (this.state === 'gameover_freeze') {
+          // Camera zooms into face smoothly
+          this.cameraZoom += (this.targetZoom - this.cameraZoom) * 4 * dt;
+        } else {
+          // Idle starfield and cloud drift
+          for (let i = 0; i < this.stars.length; i++) {
+            const s = this.stars[i];
+            s.x -= s.speed * dt * 0.4;
+            if (s.x < 0) s.x = this.width;
+          }
+          for (let i = 0; i < this.clouds.length; i++) {
+            const c = this.clouds[i];
+            c.x -= c.speed * dt * 0.4;
+            if (c.x + c.w < 0) c.x = this.width + 50;
+          }
+        }
+
+        this.render();
+      }
+
+      update(dt) {
+        this.speed = Math.min(480, 290 + this.score * 4.2);
+
+        // DSP Watermarks parallax
+        for (let i = 0; i < this.dspWatermarks.length; i++) {
+          const w = this.dspWatermarks[i];
+          w.x -= (w.baseSpeed + this.speed * 0.08) * dt;
+          if (w.x < -180) w.x += 600;
+        }
+
+        // Stars
+        for (let i = 0; i < this.stars.length; i++) {
+          const s = this.stars[i];
+          s.x -= s.speed * dt;
+          if (s.x < 0) s.x = this.width;
+        }
+
+        // Clouds
+        for (let i = 0; i < this.clouds.length; i++) {
+          const c = this.clouds[i];
+          c.x -= c.speed * dt;
+          if (c.x + c.w < 0) c.x = this.width + 60;
+        }
+
+        // Apply Gravity to Player
+        this.player.vy += this.player.gravityDir * this.gravityAcc * dt;
+        if (this.player.vy > this.terminalVel) this.player.vy = this.terminalVel;
+        if (this.player.vy < -this.terminalVel) this.player.vy = -this.terminalVel;
+
+        this.player.y += this.player.vy * dt;
+
+        // Somersault flip spin
+        if (this.player.flipSpin !== 0) {
+          const spinSpeed = 16;
+          if (this.player.flipSpin > 0) {
+            this.player.flipSpin = Math.max(0, this.player.flipSpin - spinSpeed * dt);
+          } else {
+            this.player.flipSpin = Math.min(0, this.player.flipSpin + spinSpeed * dt);
+          }
+        }
+
+        // Face wobble animation & tilt
+        this.player.wobbleAngle += dt * 8;
+        const baseRot = this.player.gravityDir === -1 ? Math.PI : 0;
+        const tilt = (this.player.vy / this.terminalVel) * 0.35;
+        this.player.rotation = baseRot + tilt + this.player.flipSpin;
+        this.player.capeWave += dt * 12;
+
+        // Boundary Limits
+        if (this.player.y + this.player.radius >= this.floorY) {
+          this.player.y = this.floorY - this.player.radius;
+          this.player.vy = 0;
+          this.emitSparks(this.player.x, this.player.y + this.player.radius, 1, '#ffd700');
+        }
+        if (this.player.y - this.player.radius <= this.ceilingY) {
+          this.player.y = this.ceilingY + this.player.radius;
+          this.player.vy = 0;
+          this.emitSparks(this.player.x, this.player.y - this.player.radius, 1, '#ffd700');
+        }
+
+        // Exhaust / cape meme sparks
+        if (Math.random() < 0.65) {
+          this.particles.push({
+            x: this.player.x - 24,
+            y: this.player.y + (this.player.gravityDir === 1 ? -6 : 6),
+            vx: -Math.random() * 120 - 60,
+            vy: (Math.random() - 0.5) * 40,
+            size: Math.random() * 4 + 2,
+            color: Math.random() > 0.4 ? '#00d4ff' : '#ff007f',
+            alpha: 1,
+            life: 1,
+            decay: 0.05
+          });
+        }
+
+        // Obstacle Spawning
+        this.spawnTimer += this.speed * dt;
+        if (this.spawnTimer >= this.nextSpawnGap) {
+          this.spawnTimer = 0;
+          this.spawnMilkBottles();
+          this.nextSpawnGap = Math.max(200, 260 - this.score * 2.5) + Math.random() * 40;
+        }
+
+        // Update Obstacles
+        for (let i = this.obstacles.length - 1; i >= 0; i--) {
+          const obs = this.obstacles[i];
+          obs.x -= this.speed * dt;
+
+          // Score when passed
+          if (!obs.passed && obs.x + obs.width < this.player.x) {
+            obs.passed = true;
+            if (obs.isGolden) {
+              this.score += 5;
+              sound.playGoldenChime();
+              this.addScorePopup(obs.x + 30, obs.gapY + obs.gapSize / 2, '+5 GOLDEN MILK! 🍼', '#ffd700');
+              this.emitMemeHearts(obs.x + 30, obs.gapY + obs.gapSize / 2);
+            } else {
+              this.score += 1;
+              sound.playWhistle();
+              this.addScorePopup(obs.x + 30, obs.gapY + obs.gapSize / 2, '+1 MILK 🥛', '#00d4ff');
+            }
+            this.updateHUD();
+          }
+
+          // Check Collision with Milk Bottles
+          if (this.checkMilkBottleCollision(obs)) {
+            this.triggerGameOverSequence();
+            return;
+          }
+
+          // Remove off-screen
+          if (obs.x + obs.width < -60) {
+            this.obstacles.splice(i, 1);
+          }
+        }
+
+        // Update Particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.x += (p.vx || 0) * dt;
+          p.y += (p.vy || 0) * dt;
+          p.life -= p.decay * dt * 60;
+          p.alpha = Math.max(0, p.life);
+          if (p.life <= 0) {
+            this.particles.splice(i, 1);
+          }
+        }
+
+        // Update Floating Texts
+        for (let i = this.floatingTexts.length - 1; i >= 0; i--) {
+          const ft = this.floatingTexts[i];
+          ft.y -= 45 * dt;
+          ft.life -= ft.decay * dt * 60;
+          ft.alpha = Math.max(0, ft.life);
+          if (ft.life <= 0) {
+            this.floatingTexts.splice(i, 1);
+          }
+        }
+
+        // Update Confetti
+        for (let i = this.confetti.length - 1; i >= 0; i--) {
+          const cf = this.confetti[i];
+          cf.x += cf.vx * dt;
+          cf.y += cf.vy * dt;
+          cf.rotation += cf.vRot * dt;
+          if (cf.y > this.height + 20) {
+            this.confetti.splice(i, 1);
+          }
+        }
+      }
+
+      checkMilkBottleCollision(obs) {
+        const px = this.player.x;
+        const py = this.player.y;
+        const pr = this.player.radius - 5; // Fair hitbox
+
+        if (px + pr > obs.x + 6 && px - pr < obs.x + obs.width - 6) {
+          if (py - pr < obs.gapY) return true;
+          if (py + pr > obs.gapY + obs.gapSize) return true;
+        }
+        return false;
+      }
+
+      render() {
+        const ctx = this.ctx;
+        ctx.save();
+
+        ctx.fillStyle = '#030614';
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Center & Scale to 450x800
+        ctx.translate(this.offsetX, this.offsetY);
+        ctx.scale(this.scale, this.scale);
+
+        // Camera zoom into player face on gameover
+        if (this.cameraZoom > 1.0) {
+          ctx.translate(this.player.x, this.player.y);
+          ctx.scale(this.cameraZoom, this.cameraZoom);
+          ctx.translate(-this.player.x, -this.player.y);
+        }
+
+        ctx.beginPath();
+        ctx.rect(0, 0, this.width, this.height);
+        ctx.clip();
+
+        // 1. Dark Blue Night Sky
+        const skyGrad = ctx.createLinearGradient(0, 0, 0, this.height);
+        skyGrad.addColorStop(0, '#061033');
+        skyGrad.addColorStop(0.5, '#0c1e57');
+        skyGrad.addColorStop(1, '#04091f');
+        ctx.fillStyle = skyGrad;
+        ctx.fillRect(0, 0, this.width, this.height);
+
+        // 2. Stars & Moon
+        ctx.fillStyle = '#ffffff';
+        for (let i = 0; i < this.stars.length; i++) {
+          const s = this.stars[i];
+          ctx.globalAlpha = s.alpha;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Glowing Moon in top right
+        ctx.save();
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = '#fff';
+        ctx.fillStyle = '#fffde8';
+        ctx.beginPath();
+        ctx.arc(380, 110, 24, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // 3. Giant Transparent Glowing "DSP" text repeated in background
+        ctx.save();
+        ctx.font = '900 95px "Bungee", sans-serif';
+        ctx.fillStyle = 'rgba(0, 212, 255, 0.08)';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = 'rgba(0, 212, 255, 0.2)';
+        for (let i = 0; i < this.dspWatermarks.length; i++) {
+          const w = this.dspWatermarks[i];
+          ctx.fillText('DSP', w.x, w.y);
+        }
+        ctx.restore();
+
+        // 4. Moving Soft Clouds
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+        for (let i = 0; i < this.clouds.length; i++) {
+          const c = this.clouds[i];
+          ctx.beginPath();
+          ctx.ellipse(c.x, c.y, c.w * 0.5, c.h * 0.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 5. Neon City Skyline silhouette at bottom
+        this.drawNeonCityLights(ctx);
+
+        // 6. Floor & Ceiling Electric Tracks
+        ctx.fillStyle = '#071030';
+        ctx.fillRect(0, 0, this.width, this.ceilingY);
+        ctx.fillRect(0, this.floorY, this.width, this.height - this.floorY);
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#00d4ff';
+        ctx.fillStyle = '#00d4ff';
+        ctx.fillRect(0, this.ceilingY - 4, this.width, 4);
+        ctx.fillRect(0, this.floorY, this.width, 4);
+        ctx.shadowBlur = 0;
+
+        // 7. Draw Giant Milk Bottles (NO WINE BOTTLES!)
+        for (let i = 0; i < this.obstacles.length; i++) {
+          this.drawMilkBottlePair(ctx, this.obstacles[i]);
+        }
+
+        // 8. Draw Particles & Emojis
+        for (let i = 0; i < this.particles.length; i++) {
+          const p = this.particles[i];
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          if (p.icon) {
+            ctx.font = `${p.size}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText(p.icon, p.x, p.y);
+          } else {
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+
+        // 9. Draw Floating Score Popups
+        for (let i = 0; i < this.floatingTexts.length; i++) {
+          const ft = this.floatingTexts[i];
+          ctx.save();
+          ctx.globalAlpha = ft.alpha;
+          ctx.font = '800 16px "Fredoka", sans-serif';
+          ctx.fillStyle = ft.color;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = ft.color;
+          ctx.textAlign = 'center';
+          ctx.fillText(ft.text, ft.x, ft.y);
+          ctx.restore();
+        }
+
+        // 10. Draw Confetti for High Scores
+        for (let i = 0; i < this.confetti.length; i++) {
+          const cf = this.confetti[i];
+          ctx.save();
+          ctx.translate(cf.x, cf.y);
+          ctx.rotate(cf.rotation);
+          ctx.fillStyle = cf.color;
+          ctx.fillRect(-cf.w / 2, -cf.h / 2, cf.w, cf.h);
+          ctx.restore();
+        }
+
+        // 11. Draw Player Character (Sanjay's Cutout Face + Blue Glow)
+        this.drawSanjayCharacter(ctx);
+
+        ctx.restore();
+      }
+
+      drawNeonCityLights(ctx) {
+        ctx.save();
+        ctx.fillStyle = '#060d26';
+        const baseY = this.floorY - 70;
+        const bWidths = [40, 50, 35, 60, 45, 55, 38, 48, 52];
+        let curX = 0;
+        for (let i = 0; i < bWidths.length; i++) {
+          const bw = bWidths[i];
+          const bh = 50 + (i % 3) * 20;
+          ctx.fillRect(curX, baseY - bh, bw, bh + 70);
+
+          // Glowing neon windows
+          ctx.fillStyle = (i % 2 === 0) ? 'rgba(0, 212, 255, 0.6)' : 'rgba(255, 215, 0, 0.6)';
+          for (let wy = baseY - bh + 10; wy < baseY + 20; wy += 14) {
+            ctx.fillRect(curX + 8, wy, 6, 6);
+            ctx.fillRect(curX + bw - 14, wy, 6, 6);
+          }
+          ctx.fillStyle = '#060d26';
+          curX += bw + 5;
+        }
+        ctx.restore();
+      }
+
+      // GIANT MILK BOTTLES PAIR (White Milk with Blue Label or Golden Bonus Bottle)
+      drawMilkBottlePair(ctx, obs) {
+        ctx.save();
+        const x = obs.x;
+        const w = obs.width;
+        const isGold = obs.isGolden;
+
+        // TOP MILK BOTTLE (Points downwards towards gap)
+        this.renderSingleMilkBottle(ctx, x, this.ceilingY, w, obs.gapY - this.ceilingY, true, isGold);
+
+        // BOTTOM MILK BOTTLE (Points upwards towards gap)
+        const botY = obs.gapY + obs.gapSize;
+        const botH = this.floorY - botY;
+        this.renderSingleMilkBottle(ctx, x, botY, w, botH, false, isGold);
+
+        ctx.restore();
+      }
+
+      renderSingleMilkBottle(ctx, x, y, w, h, isTop, isGold) {
+        ctx.save();
+
+        const bottleColor = isGold ? '#ffd700' : '#ffffff';
+        const labelBg = isGold ? '#ffaa00' : '#0077ff';
+        const glowColor = isGold ? 'rgba(255, 215, 0, 0.8)' : 'rgba(0, 212, 255, 0.5)';
+
+        ctx.shadowBlur = isGold ? 22 : 12;
+        ctx.shadowColor = glowColor;
+
+        // Bottle Body Dimensions
+        const neckH = Math.min(32, h * 0.25);
+        const neckW = w * 0.45;
+        const neckX = x + (w - neckW) / 2;
+
+        if (isTop) {
+          // Top bottle: Main body is at top, neck tapers DOWN
+          const bodyH = h - neckH;
+
+          // Main Glass/Milk Body
+          ctx.fillStyle = bottleColor;
+          ctx.fillRect(x, y, w, bodyH);
+
+          // Tapered Neck pointing DOWN
+          ctx.beginPath();
+          ctx.moveTo(x, y + bodyH);
+          ctx.lineTo(neckX, y + h);
+          ctx.lineTo(neckX + neckW, y + h);
+          ctx.lineTo(x + w, y + bodyH);
+          ctx.closePath();
+          ctx.fill();
+
+          // Cap at the bottom tip
+          ctx.fillStyle = labelBg;
+          ctx.fillRect(neckX - 3, y + h - 8, neckW + 6, 8);
+
+          // Blue / Gold Milk Label across body
+          if (bodyH > 35) {
+            const labelH = Math.min(36, bodyH * 0.45);
+            const labelY = y + (bodyH - labelH) / 2;
+            ctx.fillStyle = labelBg;
+            ctx.fillRect(x + 3, labelY, w - 6, labelH);
+
+            // Label Text: "MILK" or "పాలు"
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 13px "Fredoka", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(isGold ? 'GOLD MILK' : 'DSP MILK', x + w / 2, labelY + labelH / 2);
+          }
+        } else {
+          // Bottom bottle: Neck tapers UP, Main body at bottom
+          const bodyH = h - neckH;
+          const bodyY = y + neckH;
+
+          // Cap at the top tip
+          ctx.fillStyle = labelBg;
+          ctx.fillRect(neckX - 3, y, neckW + 6, 8);
+
+          // Tapered Neck pointing UP
+          ctx.fillStyle = bottleColor;
+          ctx.beginPath();
+          ctx.moveTo(neckX, y + 8);
+          ctx.lineTo(x, bodyY);
+          ctx.lineTo(x + w, bodyY);
+          ctx.lineTo(neckX + neckW, y + 8);
+          ctx.closePath();
+          ctx.fill();
+
+          // Main Glass/Milk Body
+          ctx.fillRect(x, bodyY, w, bodyH);
+
+          // Blue / Gold Milk Label
+          if (bodyH > 35) {
+            const labelH = Math.min(36, bodyH * 0.45);
+            const labelY = bodyY + (bodyH - labelH) / 2;
+            ctx.fillStyle = labelBg;
+            ctx.fillRect(x + 3, labelY, w - 6, labelH);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 13px "Fredoka", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(isGold ? 'GOLD MILK' : 'DSP MILK', x + w / 2, labelY + labelH / 2);
+          }
+        }
+
+        // Glass gleam line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(x + 8, y + 10);
+        ctx.lineTo(x + 8, y + h - 10);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      // PLAYER CHARACTER: SANJAY'S FACE + FUNNY WOBBLE + BLUE GLOW
+      drawSanjayCharacter(ctx) {
+        ctx.save();
+        ctx.translate(this.player.x, this.player.y);
+        ctx.rotate(this.player.rotation);
+
+        // Funny Face Wobble Scaling
+        const wobble = Math.sin(this.player.wobbleAngle) * 0.05 + 1.0;
+        ctx.scale(wobble, 1 / wobble);
+
+        // Superhero Red Cape
+        ctx.fillStyle = '#ff0055';
+        ctx.beginPath();
+        const capeWave = Math.sin(this.player.capeWave) * 8;
+        ctx.moveTo(-16, -10);
+        ctx.quadraticCurveTo(-38, capeWave, -50, capeWave * 1.5);
+        ctx.lineTo(-44, capeWave * 1.5 + 24);
+        ctx.quadraticCurveTo(-32, capeWave + 18, -16, 12);
+        ctx.closePath();
+        ctx.fill();
+
+        // Neon Blue Aura
+        ctx.shadowBlur = 24;
+        ctx.shadowColor = '#00d4ff';
+
+        // Glowing Blue Border Ring
+        ctx.strokeStyle = '#00d4ff';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(0, 0, this.player.radius + 2, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Circular Face Cutout of Reference Photo
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(0, 0, this.player.radius, 0, Math.PI * 2);
+        ctx.clip();
+
+        if (this.sanjayImg.complete && this.sanjayImg.naturalWidth > 0) {
+          ctx.drawImage(
+            this.sanjayImg,
+            -this.player.radius,
+            -this.player.radius,
+            this.player.radius * 2,
+            this.player.radius * 2
+          );
+        } else {
+          ctx.fillStyle = '#f8c291';
+          ctx.fill();
+        }
+        ctx.restore();
+
+        ctx.restore();
+      }
+    }
+
+    // Launch game on DOM ready
+    window.addEventListener('DOMContentLoaded', () => {
+      new FlyingSanjayReelGame();
+    });
+  </script>
+</body>
+</html>

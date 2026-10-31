@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f3ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#060c24" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5c298"/>
+      <stop offset="100%" stop-color="#d99966"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f3ff"/>
+      <stop offset="100%" stop-color="#9d00ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Aura Glow -->
+  <circle cx="200" cy="200" r="190" fill="url(#bgGlow)"/>
+
+  <!-- Outer Neon Border Ring -->
+  <circle cx="200" cy="200" r="185" fill="#0d1430" stroke="#00f3ff" stroke-width="6"/>
+
+  <!-- Neck -->
+  <rect x="175" y="270" width="50" height="60" rx="10" fill="#d99966"/>
+
+  <!-- Collar / Shirt -->
+  <path d="M130 360 L170 300 L200 330 L230 300 L270 360 Z" fill="#2563eb" stroke="#1d4ed8" stroke-width="4"/>
+  <circle cx="200" cy="350" r="4" fill="#fbbf24"/>
+
+  <!-- Head / Face -->
+  <ellipse cx="200" cy="205" rx="85" ry="100" fill="url(#skinGrad)" stroke="#b87a4c" stroke-width="3"/>
+
+  <!-- Ears -->
+  <ellipse cx="112" cy="205" rx="15" ry="24" fill="#e2a677"/>
+  <ellipse cx="112" cy="205" rx="8" ry="14" fill="#c78657"/>
+  <ellipse cx="288" cy="205" rx="15" ry="24" fill="#e2a677"/>
+  <ellipse cx="288" cy="205" rx="8" ry="14" fill="#c78657"/>
+
+  <!-- Stylish Modern Hair -->
+  <path d="M115 175 Q110 100 160 85 Q200 70 250 85 Q290 100 285 175 Q270 115 200 110 Q130 115 115 175 Z" fill="url(#hairGrad)"/>
+  <path d="M150 90 Q175 60 210 65 Q235 70 245 85" stroke="#3f3f46" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyebrows -->
+  <path d="M140 160 Q165 148 185 158" stroke="#1c1917" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M215 158 Q235 148 260 160" stroke="#1c1917" stroke-width="7" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes -->
+  <ellipse cx="162" cy="182" rx="14" ry="10" fill="#ffffff"/>
+  <circle cx="164" cy="182" r="7" fill="#1c1917"/>
+  <circle cx="167" cy="179" r="2.5" fill="#ffffff"/>
+
+  <ellipse cx="238" cy="182" rx="14" ry="10" fill="#ffffff"/>
+  <circle cx="236" cy="182" r="7" fill="#1c1917"/>
+  <circle cx="239" cy="179" r="2.5" fill="#ffffff"/>
+
+  <!-- Cool Aviator Neon Sunglasses (Toggled on/off or resting stylishly) -->
+  <g id="sunglasses" opacity="0.95">
+    <!-- Left Lens -->
+    <path d="M135 170 Q165 168 185 170 Q188 198 165 204 Q138 202 135 170 Z" fill="url(#glassGrad)" stroke="#ffe600" stroke-width="3"/>
+    <!-- Right Lens -->
+    <path d="M215 170 Q235 168 265 170 Q268 202 235 204 Q212 198 215 170 Z" fill="url(#glassGrad)" stroke="#ffe600" stroke-width="3"/>
+    <!-- Bridge & Temples -->
+    <path d="M185 174 Q200 170 215 174" stroke="#ffe600" stroke-width="4" fill="none"/>
+    <path d="M120 175 L135 172" stroke="#ffe600" stroke-width="3"/>
+    <path d="M265 172 L280 175" stroke="#ffe600" stroke-width="3"/>
+    <!-- Glare shine on glasses -->
+    <line x1="145" y1="174" x2="160" y2="198" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+    <line x1="225" y1="174" x2="240" y2="198" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- Nose -->
+  <path d="M200 185 L196 215 Q200 220 206 217" stroke="#b87a4c" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Charming Mustache -->
+  <path d="M170 236 Q188 230 200 236 Q212 230 230 236 Q220 248 200 242 Q180 248 170 236 Z" fill="#1c1917"/>
+
+  <!-- Confident Grin / Smile -->
+  <path d="M175 248 Q200 272 225 248" stroke="#991b1b" stroke-width="4" fill="#ffffff" stroke-linecap="round"/>
+  <path d="M175 248 Q200 272 225 248 Z" fill="#ffffff"/>
+  <path d="M174 248 Q200 252 226 248" stroke="#1c1917" stroke-width="2" fill="none"/>
+
+  <!-- Cheerful Dimples -->
+  <path d="M165 246 Q162 252 166 258" stroke="#c78657" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M235 246 Q238 252 234 258" stroke="#c78657" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Sparkle in corner -->
+  <polygon points="295,95 300,80 305,95 320,100 305,105 300,120 295,105 280,100" fill="#ffe600"/>
+  <polygon points="105,275 108,265 111,275 121,278 111,281 108,291 105,281 95,278" fill="#00f3ff"/>
+</svg>
+
