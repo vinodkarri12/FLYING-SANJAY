@@ -219,6 +219,16 @@
       line-height: 1;
     }
 
+    .top-controls-bar {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 45;
+      pointer-events: auto;
+    }
+
     .hud-controls {
       display: flex;
       gap: 10px;
@@ -226,25 +236,38 @@
     }
 
     .hud-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       background: rgba(4, 10, 30, 0.88);
       border: 2px solid var(--neon-blue);
-      box-shadow: 0 0 12px var(--neon-blue-glow);
+      box-shadow: 0 0 14px var(--neon-blue-glow);
       color: #fff;
-      font-size: 18px;
+      font-size: 19px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
       outline: none;
-      transition: transform 0.15s ease, background 0.15s ease;
+      transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .hud-btn:hover {
+      border-color: #00ffff;
+      box-shadow: 0 0 22px var(--neon-blue), inset 0 0 8px rgba(0, 212, 255, 0.35);
     }
 
     .hud-btn:active {
       transform: scale(0.9);
       background: var(--neon-blue);
+    }
+
+    .speaker-icon {
+      display: inline-block;
+      font-size: 20px;
+      line-height: 1;
+      pointer-events: none;
     }
 
     /* Screen Modals */
@@ -688,7 +711,19 @@
 
     <input type="file" id="photo-upload" accept="image/*" style="display: none;">
     <input type="file" id="mp3-upload" accept="audio/mp3,audio/*" style="display: none;">
-    <audio id="bgm-audio" loop preload="auto"></audio>
+    <audio id="bgm-audio" loop preload="auto" playsinline webkit-playsinline>
+      <source src="assets/bgm.mp3" type="audio/mpeg">
+      <source src="assets/WhatsApp Audio 2026-10-31 at 10.41.45 AM.mpeg" type="audio/mpeg">
+      <source src="assets/bgm.mpeg" type="audio/mpeg">
+    </audio>
+
+    <!-- Top Floating Controls: Speaker Music Toggle & Pause (Always Accessible) -->
+    <div class="top-controls-bar" id="top-controls-bar">
+      <button class="hud-btn music-btn" id="btn-audio" title="Music: ON (Click to Mute)" aria-label="Toggle Music">
+        <span class="speaker-icon" id="speaker-icon">🔊</span>
+      </button>
+      <button class="hud-btn" id="btn-pause" title="Pause Game" aria-label="Pause Game" style="display: none;">⏸</button>
+    </div>
 
     <!-- Reel Sidebar -->
     <div class="reel-sidebar" id="reel-sidebar">
@@ -715,11 +750,6 @@
             <span class="score-label">Score</span>
             <span class="score-value" id="hud-score">0</span>
           </div>
-        </div>
-
-        <div class="hud-controls">
-          <button class="hud-btn" id="btn-audio" title="Toggle Sound">🔊</button>
-          <button class="hud-btn" id="btn-pause" title="Pause Game">⏸</button>
         </div>
       </div>
     </div>
@@ -825,27 +855,48 @@
     const SANJAY_HERO_SRC = "__SANJAY_HERO_B64__";
     const SANJAY_FAIL_SRC = "__SANJAY_FAIL_B64__";
     const SANJAY_SMILE_SRC = "__SANJAY_SMILE_B64__";
+    const SANJAY_SONG_SRC = "__UPLOADED_SONG_B64__";
 
-    // AUDIO SYSTEM: User MP3 support + Web Audio Synthesizer fallback
+    // AUDIO SYSTEM: Official Uploaded Song Engine (Android, iOS & PC Optimized)
     class GameAudioEngine {
       constructor() {
         this.ctx = null;
         this.isMuted = false;
         this.bgmPlaying = false;
-        this.synthTimer = null;
-        this.step = 0;
-        this.bpm = 138;
         this.bgmAudio = document.getElementById('bgm-audio');
-        this.hasUserMp3 = false;
+        this.songSrc = SANJAY_SONG_SRC;
 
-        // Try to load assets/bgm.mp3 if present
-        this.bgmAudio.addEventListener('canplaythrough', () => {
-          this.hasUserMp3 = true;
-        });
-        this.bgmAudio.addEventListener('error', () => {
-          this.hasUserMp3 = false;
-        });
-        this.bgmAudio.src = 'assets/bgm.mp3';
+        if (this.bgmAudio) {
+          this.bgmAudio.loop = true;
+          this.bgmAudio.preload = 'auto';
+
+          // Load audio source: if file:/// protocol or if relative load fails, use embedded data URL
+          const isFileProtocol = window.location.protocol === 'file:';
+          if (isFileProtocol && this.songSrc && this.songSrc.startsWith('data:')) {
+            this.bgmAudio.src = this.songSrc;
+          } else {
+            this.bgmAudio.src = 'assets/bgm.mp3';
+          }
+
+          // Mobile & Desktop error fallback: switch to embedded base64 immediately
+          this.bgmAudio.addEventListener('error', () => {
+            if (this.songSrc && this.songSrc.startsWith('data:') && this.bgmAudio.src !== this.songSrc) {
+              this.bgmAudio.src = this.songSrc;
+              this.bgmAudio.load();
+              if (this.bgmPlaying && !this.isMuted) {
+                this.bgmAudio.play().catch(e => console.warn(e));
+              }
+            }
+          });
+
+          // Continuous loop safety for mobile devices
+          this.bgmAudio.addEventListener('ended', () => {
+            if (this.bgmPlaying && !this.isMuted) {
+              this.bgmAudio.currentTime = 0;
+              this.bgmAudio.play().catch(e => console.warn(e));
+            }
+          });
+        }
       }
 
       initContext() {
@@ -1020,78 +1071,49 @@
         setTimeout(finish, 800);
       }
 
-      startMusic() {
-        if (this.bgmPlaying) return;
-        this.initContext();
+      startMusic(fromBeginning = false) {
         this.bgmPlaying = true;
+        this.initContext();
 
-        if (this.hasUserMp3 && this.bgmAudio) {
-          this.bgmAudio.play().catch(() => {
-            this.startSynthesizedBgm();
-          });
-        } else {
-          this.startSynthesizedBgm();
+        if (!this.bgmAudio) return;
+
+        this.bgmAudio.muted = this.isMuted;
+
+        if (fromBeginning) {
+          try {
+            this.bgmAudio.currentTime = 0;
+          } catch (e) {}
+        }
+
+        if (!this.isMuted) {
+          const playPromise = this.bgmAudio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((err) => {
+              console.warn('Playback gesture awaiting user action:', err);
+              if (this.songSrc && this.songSrc.startsWith('data:') && this.bgmAudio.src !== this.songSrc) {
+                this.bgmAudio.src = this.songSrc;
+                this.bgmAudio.load();
+                this.bgmAudio.play().catch(e => console.warn(e));
+              }
+            });
+          }
+        }
+      }
+
+      pauseMusic() {
+        this.bgmPlaying = false;
+        if (this.bgmAudio) {
+          this.bgmAudio.pause();
         }
       }
 
       stopMusic() {
         this.bgmPlaying = false;
-        if (this.hasUserMp3 && this.bgmAudio) {
+        if (this.bgmAudio) {
           this.bgmAudio.pause();
-        }
-        if (this.synthTimer) {
-          clearTimeout(this.synthTimer);
-          this.synthTimer = null;
-        }
-      }
-
-      startSynthesizedBgm() {
-        this.step = 0;
-        this.scheduleNextBeat();
-      }
-
-      scheduleNextBeat() {
-        if (!this.bgmPlaying || !this.ctx) return;
-        const stepInterval = (60 / this.bpm) / 4;
-        this.playSynthesizedStep(this.step);
-        this.step = (this.step + 1) % 32;
-        this.synthTimer = setTimeout(() => this.scheduleNextBeat(), stepInterval * 1000);
-      }
-
-      playSynthesizedStep(step) {
-        if (this.isMuted || !this.ctx) return;
-        const now = this.ctx.currentTime;
-
-        // Energetic DSP Dholak / Dappu beat
-        if (step % 4 === 0 || step % 8 === 6 || step % 16 === 10) {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(140, now);
-          osc.frequency.exponentialRampToValueAtTime(42, now + 0.08);
-
-          gain.gain.setValueAtTime(0.35, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.1);
-        }
-
-        // Mass Brass Stabs
-        if (step % 8 === 0 || step % 8 === 3) {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sawtooth';
-          const notes = [293.66, 329.63, 392.00, 440.00];
-          osc.frequency.setValueAtTime(notes[(step / 4) % notes.length], now);
-
-          gain.gain.setValueAtTime(0.06, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.14);
+          try {
+            this.bgmAudio.currentTime = 0;
+          } catch (e) {}
         }
       }
     }
@@ -1272,12 +1294,16 @@
             if (this.state === 'start') {
               triggerMassStart();
             } else if (this.state === 'gameover') {
+              sound.initContext();
+              sound.startMusic(true);
               this.startRun();
             } else {
               doFlap();
             }
           } else if (e.code === 'KeyP' || e.code === 'Escape') {
             this.togglePause();
+          } else if (e.code === 'KeyM') {
+            btnAudio.click();
           }
         });
 
@@ -1286,7 +1312,7 @@
           doFlap();
         });
 
-        // START Button - Funny Mass-Style Animation & Actual Game Start
+        // START Button - Funny Mass-Style Animation & Immediate Audio Playback
         const btnStart = document.getElementById('btn-start-game');
         const badgePop = document.getElementById('mass-badge-pop');
         let isStartingGame = false;
@@ -1295,8 +1321,9 @@
           if (this.state !== 'start' || isStartingGame) return;
           isStartingGame = true;
 
-          // Sound & Haptics
+          // Sound & Haptics: immediately start uploaded song on user gesture (bypasses browser autoplay blocks)
           sound.initContext();
+          sound.startMusic(true);
           sound.playMassStart();
           if (navigator.vibrate) {
             try { navigator.vibrate([40, 30, 80, 40, 100]); } catch (e) {}
@@ -1325,19 +1352,31 @@
         // PLAY AGAIN button
         document.getElementById('btn-replay').addEventListener('click', () => {
           sound.initContext();
+          sound.startMusic(true);
           this.startRun();
         });
 
         // Pause controls
         document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
         document.getElementById('btn-resume').addEventListener('click', () => this.togglePause());
-        document.getElementById('btn-pause-restart').addEventListener('click', () => this.startRun());
+        document.getElementById('btn-pause-restart').addEventListener('click', () => {
+          sound.initContext();
+          sound.startMusic(true);
+          this.startRun();
+        });
 
-        // Audio toggle
+        // Music ON/OFF toggle with speaker icon
         const btnAudio = document.getElementById('btn-audio');
-        btnAudio.addEventListener('click', () => {
+        const speakerIcon = document.getElementById('speaker-icon');
+        btnAudio.addEventListener('click', (e) => {
+          e.stopPropagation();
           const muted = sound.toggleMute();
-          btnAudio.textContent = muted ? '🔇' : '🔊';
+          if (speakerIcon) {
+            speakerIcon.textContent = muted ? '🔇' : '🔊';
+          } else {
+            btnAudio.textContent = muted ? '🔇' : '🔊';
+          }
+          btnAudio.title = muted ? 'Music: OFF (Click to Unmute)' : 'Music: ON (Click to Mute)';
         });
 
         // Like button interaction
@@ -1346,7 +1385,7 @@
           sound.playFlap();
         });
 
-        // User MP3 upload
+        // User custom audio upload option
         const mp3Input = document.getElementById('mp3-upload');
         document.getElementById('btn-custom-mp3').addEventListener('click', () => {
           mp3Input.click();
@@ -1356,8 +1395,7 @@
           if (file) {
             const url = URL.createObjectURL(file);
             sound.bgmAudio.src = url;
-            sound.hasUserMp3 = true;
-            sound.startMusic();
+            sound.startMusic(true);
           }
         });
       }
@@ -1382,24 +1420,28 @@
         this.player.rotation = 0;
         this.player.wobble = 0;
 
-        // Hide overlays
+        // Hide overlays & show in-game pause button
         this.screenStart.classList.add('hidden');
         this.screenGameOver.classList.add('hidden');
         this.screenPause.classList.add('hidden');
+        const pauseBtn = document.getElementById('btn-pause');
+        if (pauseBtn) pauseBtn.style.display = 'flex';
         this.redFlash.classList.remove('active');
         this.container.classList.remove('screen-shake');
 
         this.hudScore.textContent = '0';
-        sound.startMusic();
+        sound.startMusic(false);
       }
 
       togglePause() {
         if (this.state === 'playing') {
           this.state = 'paused';
           this.screenPause.classList.remove('hidden');
+          sound.pauseMusic();
         } else if (this.state === 'paused') {
           this.state = 'playing';
           this.screenPause.classList.add('hidden');
+          sound.startMusic(false);
         }
       }
 
@@ -1408,6 +1450,8 @@
         this.state = 'gameover_freeze';
 
         sound.stopMusic();
+        const pauseBtn = document.getElementById('btn-pause');
+        if (pauseBtn) pauseBtn.style.display = 'none';
 
         // 1. Red Screen Flash
         this.redFlash.classList.add('active');

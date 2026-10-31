@@ -64,12 +64,18 @@ A cinematic, energetic, and hilarious Telugu meme-style flying arcade game built
   మళ్ళీ ట్రై చెయ్ రా! (PLAY AGAIN) 🔄
   ```
 
-### 5. High-Energy Devi Sri Prasad (DSP) Mass Audio Engine
-- Built-in Web Audio API synthesizer that dynamically generates:
-  - **Devi Sri Prasad (DSP) style mass dance beats**: Energetic dappu/dholak drum rhythms, punchy 808 bass, brass fanfares, and crowd whistles.
-  - **SFX**: Flap wind swoosh, bottle pass chime, golden bottle bonus fanfare, crash hit impact, and record celebration.
-- **Custom BGM Support**: Drop any audio file named `assets/bgm.mp3` or click **`🎵 Change Song`** in the top bar to load any MP3/WAV from your device!
-- **Music ON/OFF toggle** button available during gameplay and on menus.
+### 5. Authentic BGM Audio Engine
+- **Exact Uploaded Background Track**:
+  - Plays the exact uploaded audio track (`WhatsApp Audio 2026-10-31 at 10.41.45 AM.mpeg` / `assets/bgm.mp3`) continuously in a loop during gameplay.
+  - Starts playing immediately upon clicking **START**.
+  - Pauses/stops immediately on collision when the Game Over screen appears.
+  - Automatically restarts from the beginning when clicking **PLAY AGAIN**.
+  - Optimized for Android, iOS (iPhone/iPad Safari), and PC browsers with zero lag and instant touch-gesture unlocking.
+  - Includes full offline in-memory Base64 fallback so the music plays even on direct `file:///` double-click without needing a web server.
+- **Dedicated Speaker Icon Button (`🔊` / `🔇`)**:
+  - Floating in the top-right corner, accessible at all times across all screens.
+  - Displays `🔊` when music is ON and `🔇` when muted.
+  - Can also be toggled with keyboard key <kbd>M</kbd>.
 
 ---
 
@@ -79,7 +85,7 @@ A cinematic, energetic, and hilarious Telugu meme-style flying arcade game built
 | :--- | :--- | :--- | :--- |
 | **Flap / Jump** | Tap anywhere on screen | <kbd>Space</kbd>, <kbd>W</kbd>, or <kbd>▲ Up Arrow</kbd> | Left Click |
 | **Start / Restart** | Tap Play Button | <kbd>Enter</kbd> or <kbd>Space</kbd> | Click Play Button |
-| **Mute / Unmute** | Tap 🎵 button | <kbd>M</kbd> | Click 🎵 button |
+| **Mute / Unmute** | Tap 🔊 / 🔇 button | <kbd>M</kbd> | Click 🔊 / 🔇 button |
 | **Upload Custom Photo** | Tap 📸 button | - | Click 📸 button |
 
 ---
